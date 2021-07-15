@@ -401,22 +401,31 @@
         <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.2</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+                    <!-- attached to Maven test phase -->
                     <execution>
                         <id>report</id>
-                        <phase>prepare-package</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
+
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                           <goal>prepare-agent</goal>
+                        </goals>
+                        </execution>
+
                 </executions>
-            </plugin>
+	</plugin>
           
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -440,7 +449,7 @@
           <configuration>
             <redirectTestOutputToFile>true</redirectTestOutputToFile>
             <trimStackTrace>false</trimStackTrace>
-            <argLine>${jvm.options}</argLine>
+            <argLine>${argLine} -Xmx2048m</argLine>
           </configuration>
           <dependencies>
             <dependency>
